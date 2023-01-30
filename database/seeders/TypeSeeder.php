@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Type;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Schema;
 
 class TypeSeeder extends Seeder
 {
@@ -16,6 +17,10 @@ class TypeSeeder extends Seeder
      */
     public function run()
     {
+        Schema::disableForeignKeyConstraints();
+        Type::truncate();
+        Schema::enableForeignKeyConstraints();
+
         $types = ['front-end', 'back-end', 'full stack'];
 
         foreach($types as $type) {
