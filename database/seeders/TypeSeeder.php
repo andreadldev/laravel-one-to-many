@@ -21,7 +21,7 @@ class TypeSeeder extends Seeder
         Type::truncate();
         Schema::enableForeignKeyConstraints();
 
-        $types = ['front-end', 'back-end', 'full stack'];
+        $types = ['front-end', 'back-end', 'full stack', 'empty'];
 
         foreach($types as $type) {
             $new_type = new Type();

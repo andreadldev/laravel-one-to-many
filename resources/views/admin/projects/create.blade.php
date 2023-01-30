@@ -19,6 +19,15 @@
             <label for="image" class="form-label">Immagine</label>
             <input type="file" class="form-control" id="image" name="image" placeholder="Carica immagine" value="{{ old('image') }}">
         </div>
+        <div class="mb-3">
+            <label for="type_id" class="form-label">Tipologia</label>
+            <select class="form-select" name="type_id" id="type_id">
+                @foreach ($types as $type)
+                <?php if ($type->id == 4) $type->name = 'Altro'?>
+                <option value="{{$type->id}}">{{ ucfirst($type->name) }}</option>
+                @endforeach
+            </select>
+        </div>
         <button type="submit" class="btn btn-primary">Crea</button>
     </form>
 </div>

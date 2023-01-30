@@ -12,7 +12,7 @@
         </button>
         <h2>{{ $project->id }}. {{ $project->name }}</h2> 
     </div>
-    <h6>({{ $project->slug }})</h6>
+    <h6>{{ ucfirst($project->type?->name) }}</h6>
     <small>{{ substr($project->created_at, 0, -9)}}</small>
     <p>{{ $project->description }}</p>
     @if ($project->image)

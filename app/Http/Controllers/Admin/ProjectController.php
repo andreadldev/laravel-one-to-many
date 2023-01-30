@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
+use App\Models\Type;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
@@ -19,6 +20,7 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::all();
+
         // $columns = Schema::getColumnListing('projects');
         return view('admin.projects.index', compact('projects'))->with('message', "Progetto creato con successo");
     }
@@ -30,7 +32,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create');
+        $types = Type::all();
+        return view('admin.projects.create', compact('types'));
     }
 
     /**
@@ -42,12 +45,14 @@ class ProjectController extends Controller
     public function store(StoreProjectRequest $request)
     {
         $request->validate([
+            'type_id' => 'nullable|exists:types,id',
             'name' => 'required|string|max:150',
             'description' => 'required|string|max:255',
             'image' => 'nullable|image|max:2048'
         ]);
         $data = $request->all();
         $new_project = new Project();
+        $new_project->type_id = $data['type_id'];
         $new_project->name = $data['name'];
         $new_project->description = $data['description'];
         $new_project->slug = Str::slug($new_project->name);

@@ -7,7 +7,6 @@
 </div>
 
 <a class="btn btn-primary mb-3" href="{{ route('admin.projects.create') }}">Aggiungi</a>
-
 <table class="table table-hover">
     <thead>
         <tr>
@@ -15,6 +14,7 @@
             <th scope="col">Nome</th>
             <th scope="col">Slug</th>
             <th scope="col">Descrizione</th>
+            <th scope="col">Tipologia</th>
             <th scope="col">Data di creazione</th>
         </tr>
     </thead>
@@ -25,6 +25,15 @@
         <td>{{ $project->name }}</td>
         <td>{{ $project->slug }}</td>
         <td>{{ $project->description }}</td>
+        <td>
+            <?php if ($project->type?->name=='empty') {
+                $project->type->name = 'Altro';
+            } else if (is_null($project->type?->name)) {
+                echo 'Altro';
+            } 
+            echo ucfirst($project->type?->name)
+            ?>
+        </td>
         <td>{{ substr($project->created_at, 0, -9)}}</td>
     </tr>
     @endforeach
