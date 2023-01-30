@@ -12,7 +12,13 @@
         </button>
         <h2>{{ $project->id }}. {{ $project->name }}</h2> 
     </div>
-    <h6>{{ ucfirst($project->type?->name) }}</h6>
+    <h6>
+        <?php 
+            if ($project->type?->name=='empty') {
+                $project->type->name = 'Altro';
+            } else echo ucfirst($project->type?->name);
+        ?>
+    </h6>
     <small>{{ substr($project->created_at, 0, -9)}}</small>
     <p>{{ $project->description }}</p>
     @if ($project->image)
